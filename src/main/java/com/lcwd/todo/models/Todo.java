@@ -1,20 +1,29 @@
 package com.lcwd.todo.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
+
 public class Todo {
     private int id;
     private String title;
     private String content;
     private String status;
+    private Date addedDate;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private Date toDoDate;
 
     public Todo(){
 
     }
 
-    public Todo(int id, String title, String content, String status) {
+    public Todo(int id, String title, String content, String status, Date addedDate, Date toDoDate) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.status = status;
+        this.addedDate = addedDate;
+        this.toDoDate = toDoDate;
     }
 
     public int getId() {
@@ -49,6 +58,22 @@ public class Todo {
         this.status = status;
     }
 
+    public Date getAddedDate() {
+        return addedDate;
+    }
+
+    public void setAddedDate(Date addedDate) {
+        this.addedDate = addedDate;
+    }
+
+    public Date getToDoDate() {
+        return toDoDate;
+    }
+
+    public void setToDoDate(Date toDoDate) {
+        this.toDoDate = toDoDate;
+    }
+
     @Override
     public String toString() {
         return "Todo{" +
@@ -56,6 +81,8 @@ public class Todo {
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", status='" + status + '\'' +
+                ", addedDate=" + addedDate +
+                ", toDoDate=" + toDoDate +
                 '}';
     }
 }
