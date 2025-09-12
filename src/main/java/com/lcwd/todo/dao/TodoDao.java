@@ -51,41 +51,15 @@ public class TodoDao {
 
     public Todo getTodo(int id) throws ParseException {
         String query = "select * from todos WHERE id = ?";
-        Map<String, Object> todoData = template.queryForMap(query, id);
-
-        Todo todo = new Todo();
-
-        todo.setId((int) todoData.get("id"));
-        todo.setTitle((String) todoData.get("title"));
-        todo.setContent((String) todoData.get("content"));
-        todo.setStatus((String) todoData.get("status"));
-        todo.setAddedDate(Helper.parseDate((LocalDateTime) todoData.get("addedDate")));
-        todo.setToDoDate(Helper.parseDate((LocalDateTime) todoData.get("toDoDate")));
+        Todo todo = template.queryForObject(query, new TodoRowMapper(), id);
 
         return todo;
     }
 
     public List<Todo> getAllTodos(){
         String query = "select * from todos";
-        List<Map<String, Object>> maps = template.queryForList(query);
 
-        List<Todo> todos = maps.stream().map((map) -> {
-            Todo todo = new Todo();
-
-            todo.setId((int) map.get("id"));
-            todo.setTitle((String) map.get("title"));
-            todo.setContent((String) map.get("content"));
-            todo.setStatus((String) map.get("status"));
-            try {
-                todo.setAddedDate(Helper.parseDate((LocalDateTime) map.get("addedDate")));
-                todo.setToDoDate(Helper.parseDate((LocalDateTime) map.get("toDoDate")));
-            }
-            catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
-
-            return todo;
-        }).collect(Collectors.toList());
+        List<Todo> todos = template.query(query, new TodoRowMapper());
 
         return todos;
     }
