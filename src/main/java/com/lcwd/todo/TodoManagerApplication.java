@@ -31,15 +31,15 @@ public class TodoManagerApplication implements CommandLineRunner {
 //        logger.info("Template object : {}", template);
 //        logger.info("Template object : {}", template.getDataSource());
 
-        Todo todo = new Todo();
-        todo.setId(1230);
-        todo.setTitle("Java placement course");
-        todo.setContent("I have to learn java course");
-        todo.setStatus("PENDING");
-        todo.setAddedDate(new Date());
-        todo.setToDoDate(new Date());
+//        Todo todo = new Todo();
+//        todo.setId(1230);
+//        todo.setTitle("Java placement course");
+//        todo.setContent("I have to learn java course");
+//        todo.setStatus("PENDING");
+//        todo.setAddedDate(new Date());
+//        todo.setToDoDate(new Date());
 
-        todoDao.saveTodo(todo);
+//        todoDao.saveTodo(todo);
 
 //        Todo todo = todoDao.getTodo(1230);
 //        logger.info("TODO : {}",todo);
@@ -50,8 +50,8 @@ public class TodoManagerApplication implements CommandLineRunner {
 //        todo.setToDoDate(new Date());
 //        todoDao.updateTodo(1230,todo);
 
-        List<Todo> allTodos = todoDao.getAllTodos();
-        logger.info("ALL TODOS : {}", allTodos);
+//        List<Todo> allTodos = todoDao.getAllTodos();
+//        logger.info("ALL TODOS : {}", allTodos);
 
 //        todoDao.deleteTodo(1230);
 
