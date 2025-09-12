@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.Date;
+import java.util.List;
 
 @SpringBootApplication
 public class TodoManagerApplication implements CommandLineRunner {
@@ -31,16 +32,19 @@ public class TodoManagerApplication implements CommandLineRunner {
 //        logger.info("Template object : {}", template.getDataSource());
 
 //        Todo todo = new Todo();
-//        todo.setId(123);
-//        todo.setTitle("This is testing spring jdbc");
-//        todo.setContent("Wow its working");
+//        todo.setId(1230);
+//        todo.setTitle("Java placement course");
+//        todo.setContent("I have to learn java course");
 //        todo.setStatus("PENDING");
 //        todo.setAddedDate(new Date());
 //        todo.setToDoDate(new Date());
 
 //        todoDao.saveTodo(todo);
 
-        Todo todo = todoDao.getTodo(123);
-        logger.info("TODO : {}",todo);
+//        Todo todo = todoDao.getTodo(123);
+//        logger.info("TODO : {}",todo);
+
+        List<Todo> allTodos = todoDao.getAllTodos();
+        logger.info("ALL TODOS : {}", allTodos);
     }
 }
