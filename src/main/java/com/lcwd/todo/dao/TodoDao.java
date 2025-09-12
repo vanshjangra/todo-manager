@@ -16,7 +16,9 @@ public class TodoDao {
     public TodoDao(@Autowired JdbcTemplate template) {
         this.template = template;
 
-        String createTable = "";
+        String createTable = "create table IF NOT EXISTS todos(id int primary key, title varchar(100) not null, content varchar(500), status varchar(10) not null, addedDate datetime, toDoDate datetime)";
+        int update = template.update(createTable);
+        logger.info("TODO TABLE CREATED {} ", update);
     }
 
     public JdbcTemplate getTemplate() {
