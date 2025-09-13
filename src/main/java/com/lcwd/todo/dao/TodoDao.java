@@ -1,16 +1,20 @@
 package com.lcwd.todo.dao;
 
+import com.lcwd.todo.helper.Helper;
 import com.lcwd.todo.models.Todo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -48,7 +52,26 @@ public class TodoDao {
 
     public Todo getTodo(int id) throws ParseException {
         String query = "select * from todos WHERE id = ?";
-        Todo todo = template.queryForObject(query, new TodoRowMapper(), id);
+        Todo todo = template.queryForObject(query, new RowMapper<Todo>() {
+            @Override
+            public Todo mapRow(ResultSet rs, int rowNum) throws SQLException {
+                Todo todo = new Todo();
+
+                todo.setId(rs.getInt("id"));
+                todo.setTitle(rs.getString("title"));
+                todo.setContent(rs.getString("content"));
+                todo.setStatus(rs.getString("status"));
+                try {
+                    todo.setAddedDate(Helper.parseDate((LocalDateTime) rs.getObject("addedDate")));
+                    todo.setToDoDate(Helper.parseDate((LocalDateTime) rs.getObject("toDoDate")));
+                }
+                catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
+
+                return todo;
+            }
+        }, id);
 
         return todo;
     }
@@ -56,7 +79,23 @@ public class TodoDao {
     public List<Todo> getAllTodos(){
         String query = "select * from todos";
 
-        List<Todo> todos = template.query(query, new TodoRowMapper());
+        List<Todo> todos = template.query(query, (rs, rowNum) -> {
+            Todo todo = new Todo();
+
+            todo.setId(rs.getInt("id"));
+            todo.setTitle(rs.getString("title"));
+            todo.setContent(rs.getString("content"));
+            todo.setStatus(rs.getString("status"));
+            try {
+                todo.setAddedDate(Helper.parseDate((LocalDateTime) rs.getObject("addedDate")));
+                todo.setToDoDate(Helper.parseDate((LocalDateTime) rs.getObject("toDoDate")));
+            }
+            catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+
+            return todo;
+        });
 
         return todos;
     }
