@@ -4,14 +4,12 @@ import com.lcwd.todo.dao.TodoDao;
 import com.lcwd.todo.models.Todo;
 import com.lcwd.todo.services.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.util.List;
 
 @Service
-@Primary
 public class DaoTodoServiceImpl implements TodoService {
     @Autowired
     private TodoDao todoDao;
