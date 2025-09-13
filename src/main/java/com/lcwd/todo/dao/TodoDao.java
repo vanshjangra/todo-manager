@@ -1,23 +1,20 @@
 package com.lcwd.todo.dao;
 
-import com.lcwd.todo.helper.Helper;
 import com.lcwd.todo.models.Todo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
-@Component
+
+@Repository
 public class TodoDao {
     private JdbcTemplate template;
 

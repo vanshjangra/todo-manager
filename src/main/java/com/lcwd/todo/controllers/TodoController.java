@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -45,7 +46,7 @@ public class TodoController {
     }
 
     @GetMapping("/{todoId}")
-    public ResponseEntity<Todo> getSingleTodoHandler(@PathVariable int todoId){
+    public ResponseEntity<Todo> getSingleTodoHandler(@PathVariable int todoId) throws ParseException {
         Todo todo = todoService.getTodo(todoId);
         return ResponseEntity.ok(todo);
     }
